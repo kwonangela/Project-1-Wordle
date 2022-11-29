@@ -1,9 +1,44 @@
-h1 {
+body{
+    background-color: rgb(200,180,180);
+    color: white;
+}
+.header{
+    border-bottom: solid 3px;
+    margin-bottom: 30px;
+    padding: 1px;
+    background-color: rgb(0,40,30);
+    display: inline-block;
+    width: 100%;
+}
+.header h1 {
+    float: center;
     text-align: center;
-    font-size: 50px;
+    font-size: 40px;
+    background-color: green;
+}
+.header p {
+    float: right;
+    background-color: peru;
 }
 
-.game {
+.game{
+    height: 95%;
+    background-color: rgb(0,40,30);
+}
+
+.guess {
     display: flex;
-    
+    list-style: none;
+    justify-content: center;
+    text-align: center;
+    background-color: black;
+}
+
+.letter {
+    font-size: 50px;
+    border: solid;
+    width: 50px;
+    margin: 3px;
+    background-color: rgb(50,20,30);
+
 }
