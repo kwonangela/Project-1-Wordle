@@ -5,16 +5,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./project1.css">
-    <script src="./project1-attempt2.js" defer></script>
     <title>Document</title>
 </head>
 <body>
-    <header class="header">
-        <h1>WORDLE</h1>
-        <p>Rules</p>
+    <header>
+        <p id="wordle">WORDLE</p>
+        <button id="rules">Rules</button>
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <p>Here are the rules: </p>
+            </div>
+        </div>
     </header>
     <div class="game">
-        <p>hi</p>
+        <!-- <p>hi</p> -->
         <div class="guess">
             <li class="letter">a</li>
             <li class="letter">b</li>
@@ -58,5 +63,6 @@
             <li class="letter">e</li>
         </div>
     </div>
+    <script type="module" src="project1-attempt2.js"></script>
 </body>
 </html>
