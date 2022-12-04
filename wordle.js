@@ -7,7 +7,6 @@ let thisAttempt = 0;
 let thisLetterPos = 0;
 let thisWord=[];
 
-
 function makeGame(){
     const board = document.querySelector('#game');
     board.innerHTML = "";
@@ -16,6 +15,7 @@ function makeGame(){
         row.className = "row";
         row.id = i;
         board.appendChild(row);
+        row.addEventListener("input", nextLetter);
         for (let j=0; j < wordLength; j++){
             let col = document.createElement("input");
             col.className = "col";
@@ -23,30 +23,46 @@ function makeGame(){
             col.id = `${i}-${j}`;
             row.appendChild(col);
         }
-        let wordButton = document.createElement("button");
-        board.appendChild(wordButton);
-        wordButton.className = "wordButton";
-        wordButton.innerHTML = `Submit Word ${i}`;
-        wordButton.id = `but${i}`;
     }
 }
 makeGame();
 
+function nextLetter(e) {
+    let input = e.target;
+    if ((input.nextElementSibling && input.value)) {
+        input.nextElementSibling.focus();
+    }
+    thisLetterPos++;
+    console.log("nextletter This Letter Pos: " + thisLetterPos);
+}
 
 let enterButton = document.getElementById("enter");
 
+// let submittedWord = submitWord();
+// function submitWord(letter){
+//     if (thisLetterPos < 5){
+//         document.querySelector(`${thisAttempt}-${thisLetterPos}`).innerText = letter.target.innerText;
+//         thisLetterPos++;
+//         thisWord.push(letter.target.innerText);
+//     }
+//     return thisWord;
+// }
+
 function submitWord(){
+    thisLetterPos = 0;
     for (let i=0; i<wordLength; i++){
         let testWordA = document.getElementById(`0-${i}`).value;
         thisWord.push(testWordA);
+        thisLetterPos = i;
     }
+    console.log(thisLetterPos + "apppp");
     const stringWord = thisWord.join('');
     return stringWord;
 }
 
-let submittedWord = submitWord();
+// console.log("grr" + submitWord());
 
-function clearWordArray(word){
+function clearWordArray(){
     for (let i=0; i<wordLength; i++){
         thisWord.pop(i);
     }
@@ -55,12 +71,32 @@ function clearWordArray(word){
     return thisWord;
 }
 
+document.addEventListener("keyup", (e) =>{
+    if (e.key === "Enter"){
+        if (thisLetterPos === 5 && (thisAttempt < totalGuesses)){
+            console.log("fooop");
+            console.log(submitWord());
+            console.log(clearWordArray());
+        }
+    } else if (e.key === "Backspace"){
+        let delKey = e.target;
+        if (delKey.previousElementSibling){
+            delKey.previousElementSibling.value="";
+            delKey.previousElementSibling.focus();
+        }
+        deleteLetter();
+    }
+})
+
+function deleteLetter(){
+    let delLetter = document.getElementById(`${thisAttempt}-${thisLetterPos}`);
+    thisWord.pop(delLetter);
+    thisLetterPos--;
+    console.log("this letter pos: " + thisLetterPos);
+}
 
 enterButton.addEventListener("click", function () {
-    // submitWord();
-    console.log("sdsd " + submittedWord);
-    console.log("poop" + checkWord(submitWord() + "poops"));
-    console.log("clear:" + clearWordArray(submittedWord));
+    console.log("sdsd " + submitWord() + "poops");
 
 })
 
@@ -71,49 +107,4 @@ function pickWord(){
 }
 let answerWord = pickWord();
 console.log("Answer: " + answerWord);
-
-function checkValidity (word){
-    let isValid = true;
-    if (word.length !== 5){
-        isValid = false;
-        console.log("Not 5" + word);
-    } else if (wordList.includes(word) === false){
-        console.log("Not valid" + word);
-        isValid = false;
-    } 
-    return isValid;
-}
-
-function checkIfGuessed (word){
-    let isGuessed = false;
-    if (word === answerWord){
-        isGuessed = true;
-    }
-    return isGuessed;
-}
-
-function checkWord (word){
-    if (checkValidity(word) === false){
-        console.log("checkValidity is false");
-        return;
-    } else if (checkIfGuessed(word) === false){
-        console.log(`Your word: ${word}. Answer: ${answerWord}`);
-        for (let i=0; i<wordLength; i++){
-            if (answerWord.includes(word[i]) === true){
-                if (word[i] === answerWord[i]){
-                    console.log(`${word[i]} is in the right spot`);
-                } else {
-                    console.log(`${word[i]} is in wrong spot`)
-                }
-            }
-            else{
-                console.log(`${word[i]} not here`);
-            }
-        }
-    } else {
-        console.log("u got the answer");
-    }
-}
-
-
 

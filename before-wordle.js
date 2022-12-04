@@ -139,3 +139,11 @@ function compareWords(){
 // checkWord(inputWord);
 
 
+
+
+
+// let wordButton = document.createElement("button");
+// board.appendChild(wordButton);
+// wordButton.className = "wordButton";
+// wordButton.innerHTML = `Submit Word ${i}`;
+// wordButton.id = `but${i}`;
