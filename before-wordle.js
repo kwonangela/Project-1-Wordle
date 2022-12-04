@@ -23,11 +23,6 @@ function makeGame(){
             col.id = `${i}-${j}`;
             row.appendChild(col);
         }
-        let wordButton = document.createElement("button");
-        board.appendChild(wordButton);
-        wordButton.className = "wordButton";
-        wordButton.innerHTML = `Submit Word ${i}`;
-        wordButton.id = `but${i}`;
     }
 }
 makeGame();
@@ -44,25 +39,23 @@ function submitWord(){
     return stringWord;
 }
 
-let submittedWord = submitWord();
-
-function clearWordArray(word){
-    for (let i=0; i<wordLength; i++){
-        thisWord.pop(i);
-    }
-    thisAttempt += 1;
-    console.log("this attempt: " + thisAttempt);
-    return thisWord;
-}
-
 
 enterButton.addEventListener("click", function () {
     // submitWord();
-    console.log("sdsd " + submittedWord);
-    console.log("poop" + checkWord(submitWord() + "poops"));
-    console.log("clear:" + clearWordArray(submittedWord));
+    console.log("sdsd " + submitWord());
+    console.log("poop" + checkWord(submitWord()));
 
 })
+
+
+
+
+// document.getElementById("0-0").innerHTML= "sdsdd";
+// let pracWord = document.getElementById("0-0");
+// pracWord.innerHTML="HELLO";
+// console.log("hi" + pracWord);
+
+// all words must be 5 letters long
 
 function pickWord(){
     let randIndex = Math.floor(Math.random() * (wordList.length));
@@ -115,5 +108,34 @@ function checkWord (word){
     }
 }
 
+// function compareWords(){
+//     if (checkIfGuessed(thisWord) === true){
+//         console.log("Answered!")
+//     }
+//     else if (checkValidity(thisWord) === true){
+//         checkWord(thisWord);
+//         console.log("burp");
+//     }
+// }
+
+
+function compareWords(){
+    if (checkIfGuessed(submitWord()) === true){
+        console.log("Answered!")
+    }
+    else if (checkValidity(submitWord()) === true){
+        console.log("huhuh")
+        checkWord(submitWord());
+    }
+}
+
+// checkValidity(pracWord);
+// checkIfGuessed(pracWord);
+// checkWord(pracWord);
+
+// let inputWord = "house";
+// checkValidity(inputWord);
+// checkIfGuessed(inputWord);
+// checkWord(inputWord);
 
 

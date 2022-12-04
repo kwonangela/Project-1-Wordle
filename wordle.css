@@ -1,11 +1,8 @@
 body {
     display: flex;
-    margin: 0;
-    padding: 0;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* -webkit-user-select: none; */
 }
 
 #game {
@@ -13,7 +10,6 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* flex: 0.4; */
     padding: 10px;
 }
 
@@ -34,8 +30,15 @@ body {
     border: 2px solid gray;
     margin: .5px;
     position: relative;
-    /* transition: transform 0.6s;
-    transform-style: preserve-3d; */
+    font-size: 50px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.wordButton{
+    height: 50px;
+    white-space: normal;
+    word-wrap: break-word;
 }
 
 #keyboard{
@@ -52,6 +55,7 @@ body {
 
 #enter {
     width: 4.5em;
+    background: green;
 }
 #del{
     width: 3em;
