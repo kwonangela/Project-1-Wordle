@@ -4,12 +4,14 @@ body {
     justify-content: center;
     align-items: center;
     background: black;
-    color: white;
+    color: #f5f2eb;
 }
 
 h1 {
     font-size: 40px;
     font-family: 'Courier New', Courier, monospace;
+    color: #f5f2eb;
+    border-bottom: 2px solid #f5f2eb;
 }
 
 #game {
@@ -28,9 +30,6 @@ h1 {
     margin-bottom: 5px;
     margin-top: 10px;
 }
-#game button {
-    height: 20px;
-}
 .col {
     height: 50px;
     width: 50px;
@@ -42,12 +41,7 @@ h1 {
     text-transform: uppercase;
     border-radius: 5px;
     font-family: 'Courier New', Courier, monospace;
-}
-
-.wordButton{
-    height: 50px;
-    white-space: normal;
-    word-wrap: break-word;
+    background-color: #f5f2eb;
 }
 
 #keyboard{
@@ -58,6 +52,7 @@ h1 {
 }
 
 .keys{
+    background-color: #f5f2eb;
     font-size: 15px;
     margin: 1.5px;
     width: 2em;
