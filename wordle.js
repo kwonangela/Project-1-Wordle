@@ -1,6 +1,7 @@
 // imports the wordList array from words.js, which has all the words to choose from
-import { wordList } from "./words.js";
+import { wordList , keyboardKeys} from "./words.js";
 
+let keyb = keyboardKeys;
 const wordLength = 5;
 let totalGuesses = 6; 
 let thisAttempt = 0;
@@ -25,6 +26,8 @@ function makeGame(){
             row.appendChild(col);
         }
     }
+    let firstSpot = document.getElementById("0-0");
+    firstSpot.focus();
 }
 makeGame();
 
@@ -33,8 +36,13 @@ function nextLetter(e) {
     if ((input.nextElementSibling && input.value)) {
         input.nextElementSibling.focus();
     }
-    if (thisLetterPos !== 4)
+    // if (thisLetterPos !== 4)
+    if (thisLetterPos <5){
+        if (thisLetterPos < 0){
+            thisLetterPos = 0;
+        }
         thisLetterPos++;
+    }   
     console.log("nextletter This Letter Pos: " + thisLetterPos);
 }
 
@@ -46,6 +54,7 @@ function submitWord(){
     for (let i=0; i<wordLength; i++){
         testWord = document.getElementById(`${thisAttempt}-${i}`).value;
         thisWord.push(testWord);
+        console.log("word: " + thisWord);
     }
     if (thisWord.length > 5){
         thisWord.splice(0, 5);
@@ -63,31 +72,42 @@ document.addEventListener("keydown", (e) => {
 
 document.addEventListener("keyup", (e) => {
     if (e.key === "Enter"){
-        console.log("Submitted word: " + submittedWord);
-        if (thisLetterPos < 5 && (thisAttempt < (totalGuesses-1))){
+        if (thisLetterPos < 5){
+            alert("Not a 5 letter word");
+            return;
+        }
+        if (thisLetterPos === 5 && (thisAttempt < (totalGuesses))){
             submittedWord = submitWord();
-            console.log("foop " + submittedWord);
+            if (wordList.includes(submittedWord) === false){
+                alert("Not a real word. Try Again.");
+            } 
             thisAttempt++;
             thisLetterPos = 0;
             compareWord(submittedWord);
-        } 
-        let nextGuess = document.getElementById(`${thisAttempt}-0`);
-        nextGuess.focus();
-    } else if (e.key === "Backspace"){
-        let delKey = e.target;
-        if (delKey.previousElementSibling){
-            delKey.previousElementSibling.value="";
-            delKey.previousElementSibling.focus();
-        }
-        if (thisLetterPos > 0)
-            deleteLetter();
+            }
+            if (thisAttempt < 6){
+                let nextGuess = document.getElementById(`${thisAttempt}-0`);
+                nextGuess.focus();
+            }
+        } else if (e.key === "Backspace"){
+            // thisLetterPos--;
+            let delKey = e.target;
+            if (delKey.previousElementSibling){
+                delKey.previousElementSibling.value="";
+                delKey.previousElementSibling.focus();
+            }
+            if (thisLetterPos > 0)
+                deleteLetter();
     }
 })
 
 function deleteLetter(){
     let delLetter = document.getElementById(`${thisAttempt}-${thisLetterPos}`);
-    thisWord.pop(delLetter);
-     thisLetterPos--;
+    if (thisWord.length >5){
+        thisWord.pop(delLetter);
+    }    
+    thisLetterPos--;
+
     console.log("this letter pos: " + thisLetterPos);
 }
 
@@ -104,7 +124,7 @@ function pickWord(){
 let answerWord = pickWord();
 console.log("Answer: " + answerWord);
 
-function checkValidity (){
+function checkValidity (submittedWord){
     let isValid = true;
     if (submittedWord.length !== 5){
         isValid = false;
@@ -153,14 +173,17 @@ function checkWord (word){
         console.log("u got the answer");
     }
 }
-
+let solved;
 function compareWord(word){
     if (checkIfGuessed(submittedWord) === true){
         for (let i=0; i<wordLength; i++){
-            let solved = document.getElementById(`${thisAttempt-1}-${i}`);
+            solved = document.getElementById(`${thisAttempt-1}-${i}`);
             solved.style.backgroundColor = "green";
-            console.log("Answered!")
         }
+        if (solved.style.backgroundColor = "green"){
+            alert("Answered! Click 'Ok' to guess a new word");
+        }
+        location.reload();
     }
     else if (checkValidity(submittedWord) === true){
         console.log("huhuh")
