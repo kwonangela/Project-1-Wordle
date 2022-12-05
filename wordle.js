@@ -1,7 +1,6 @@
 // imports the wordList array from words.js, which has all the words to choose from
 import { wordList , keyboardKeys} from "./words.js";
 
-let keyb = keyboardKeys;
 const wordLength = 5;
 let totalGuesses = 6; 
 let thisAttempt = 0;
@@ -21,7 +20,9 @@ function makeGame(){
         for (let j=0; j < wordLength; j++){
             let col = document.createElement("input");
             col.className = "col";
+            col.type="text";
             col.maxLength=1;
+            col.requiredPattern = "[a-zA-z]+";
             col.id = `${i}-${j}`;
             row.appendChild(col);
         }
@@ -44,7 +45,6 @@ function nextLetter(e) {
     }   
 }
 
-let enterButton = document.getElementById("enter");
 
 function submitWord(){
     let testWord="";
@@ -84,17 +84,21 @@ document.addEventListener("keyup", (e) => {
             thisAttempt++;
             thisLetterPos = 0;
             compareWord(submittedWord);
-            }
+        }
             if (thisAttempt < 6){
                 let nextGuess = document.getElementById(`${thisAttempt}-0`);
                 nextGuess.focus();
             }
             if (thisAttempt === 6){
-                alert("You lost, sorry! Word was: " + answerWord);
-                alert("Press 'Ok' to try again.")
-                location.reload();
-            }
-        } else if (e.key === "Backspace"){
+                if (submittedWord !== answerWord){
+                    alert("You lost, sorry! Word was: " + answerWord);
+                    alert("Press 'Ok' to try again.")
+                    location.reload();
+                }
+            }    
+    }
+
+    if (e.key === "Backspace"){
             let delKey = e.target;
             if (delKey.previousElementSibling){
                 delKey.previousElementSibling.value="";
@@ -102,7 +106,7 @@ document.addEventListener("keyup", (e) => {
             }
             if (thisLetterPos > 0)
                 deleteLetter();
-        }
+    } 
 })
 
 function deleteLetter(){
@@ -114,8 +118,8 @@ function deleteLetter(){
     console.log("this letter pos: " + thisLetterPos);
 }
 
+let enterButton = document.getElementById("enter");
 enterButton.addEventListener("click", function () {
-    console.log("sdsd " + submittedWord + "poops");
 
 })
 
@@ -159,27 +163,38 @@ function checkWord (word){
                 if (word[i] === answerWord[i]){
                     console.log(`${word[i]} is in the right spot`);
                     let rightSpot = document.getElementById(`${thisAttempt-1}-${i}`);
-                    rightSpot.style.backgroundColor = "green";
+                    rightSpot.style.backgroundColor = "#549e74";
+                    let right = rightSpot.value;
+                    let rightLetter = document.getElementById(`${right}`);
+                    rightLetter.style.backgroundColor = "#549e74";
+
                 } else {
                     console.log(`${word[i]} is in wrong spot`)
                     let wrongSpot = document.getElementById(`${thisAttempt-1}-${i}`);
-                    wrongSpot.style.backgroundColor = "yellow";
+                    wrongSpot.style.backgroundColor = "#f2eb96";
+                    let wrong = wrongSpot.value;
+                    let wrongLetter = document.getElementById(`${wrong}`);
+                    wrongLetter.style.backgroundColor = "#f2eb96";
                 }
             }
             else{
                 console.log(`${word[i]} not here`);
-                let wrongLetter = document.getElementById(`${thisAttempt-1}-${i}`);
-                wrongLetter.style.backgroundColor = "gray";            
+                let notLetter = document.getElementById(`${thisAttempt-1}-${i}`);
+                notLetter.style.backgroundColor = "#8b8c8f";         
+                let not = notLetter.value;
+                let notThisLetter = document.getElementById(`${not}`);
+                notThisLetter.style.backgroundColor = "#8b8c8f";
             }
         }
     }    
 }
+
 let solved;
 function compareWord(word){
     if (checkIfGuessed(submittedWord) === true){
         for (let i=0; i<wordLength; i++){
             solved = document.getElementById(`${thisAttempt-1}-${i}`);
-            solved.style.backgroundColor = "green";
+            solved.style.backgroundColor = "#549e74";
         }
         alert("Answered! Click 'Ok' to guess a new word");
         location.reload();

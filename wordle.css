@@ -3,6 +3,13 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background: black;
+    color: white;
+}
+
+h1 {
+    font-size: 40px;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 #game {
@@ -27,13 +34,14 @@ body {
 .col {
     height: 50px;
     width: 50px;
-    border: 2px solid gray;
+    border: 2px solid black;
     margin: .5px;
     position: relative;
     font-size: 50px;
     text-align: center;
     text-transform: uppercase;
     border-radius: 5px;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 .wordButton{
@@ -46,17 +54,22 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 20px;
 }
 
 .keys{
+    font-size: 15px;
     margin: 1.5px;
     width: 2em;
     height: 3em;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    border-color: black;
+    border-radius: 7px;
 }
 
 #enter {
     width: 4.5em;
-    background: green;
 }
 #del{
     width: 3em;
