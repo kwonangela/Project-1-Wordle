@@ -6,7 +6,7 @@ let totalGuesses = 6;
 let thisAttempt = 0;
 let thisLetterPos = 0;
 let thisWord=[];
-let stringWord=""
+let stringWord="";
 
 function makeGame(){
     const board = document.querySelector('#game');
@@ -41,31 +41,19 @@ function nextLetter(e) {
 let enterButton = document.getElementById("enter");
 
 function submitWord(){
+    let testWord="";
     thisLetterPos = 0;
     for (let i=0; i<wordLength; i++){
-        let testWordA = document.getElementById(`0-${i}`).value;
-        thisWord.push(testWordA);
-        thisLetterPos = i;
+        testWord = document.getElementById(`${thisAttempt}-${i}`).value;
+        thisWord.push(testWord);
+    }
+    if (thisWord.length > 5){
+        thisWord.splice(0, 5);
     }
     stringWord = thisWord.join('');
     return stringWord;
 }
-let submittedWord="";
-
-// function clearWordArray(){
-//     for (let i=0; i<wordLength; i++){
-//         thisWord.pop(i);
-//     }
-//     console.log("THIS WORD: " + thisWord);
-//     thisAttempt += 1;
-//     console.log("this attempt: " + thisAttempt);
-//     return thisWord;
-// }
-
-function clearWordArray(){
-    thisWord = "";
-    return thisWord;
-}
+let submittedWord=[];
 
 document.addEventListener("keydown", (e) => {
     if (e.key === "Tab"){
@@ -75,14 +63,16 @@ document.addEventListener("keydown", (e) => {
 
 document.addEventListener("keyup", (e) => {
     if (e.key === "Enter"){
-        if (thisLetterPos <= 4 && (thisAttempt < totalGuesses)){
-            // console.log("foop" + submitWord());
+        console.log("Submitted word: " + submittedWord);
+        if (thisLetterPos < 5 && (thisAttempt < (totalGuesses-1))){
             submittedWord = submitWord();
-            console.log("foop" + submittedWord);
-            // console.log("gub" + compareWord(submitWord()));
+            console.log("foop " + submittedWord);
+            thisAttempt++;
+            thisLetterPos = 0;
             compareWord(submittedWord);
-            // console.log(clearWordArray());
-        }
+        } 
+        let nextGuess = document.getElementById(`${thisAttempt}-0`);
+        nextGuess.focus();
     } else if (e.key === "Backspace"){
         let delKey = e.target;
         if (delKey.previousElementSibling){
@@ -102,7 +92,6 @@ function deleteLetter(){
 }
 
 enterButton.addEventListener("click", function () {
-    // console.log("sdsd " + submitWord() + "poops");
     console.log("sdsd " + submittedWord + "poops");
 
 })
@@ -115,31 +104,6 @@ function pickWord(){
 let answerWord = pickWord();
 console.log("Answer: " + answerWord);
 
-// function checkValidity (word){
-//     let isValid = true;
-//     if (word.length !== 5){
-//         isValid = false;
-//         console.log("lenght: " + word.length);
-//         console.log("Not 5" + word);
-//     } else if (wordList.includes(word) === false){
-//         console.log("Not valid" + word);
-//         isValid = false;
-//     } 
-//     return isValid;
-// }
-
-// function checkValidity (){
-//     let isValid = true;
-//     if (submitWord().length !== 5){
-//         isValid = false;
-//         console.log("lenght: " + submitWord().length);
-//         console.log("Not 5" + submitWord());
-//     } else if (wordList.includes(submitWord()) === false){
-//         console.log("Not valid" + submitWord());
-//         isValid = false;
-//     } 
-//     return isValid;
-// }
 function checkValidity (){
     let isValid = true;
     if (submittedWord.length !== 5){
@@ -171,17 +135,17 @@ function checkWord (word){
             if (answerWord.includes(word[i]) === true){
                 if (word[i] === answerWord[i]){
                     console.log(`${word[i]} is in the right spot`);
-                    let rightSpot = document.getElementById(`${thisAttempt}-${i}`);
+                    let rightSpot = document.getElementById(`${thisAttempt-1}-${i}`);
                     rightSpot.style.backgroundColor = "green";
                 } else {
                     console.log(`${word[i]} is in wrong spot`)
-                    let wrongSpot = document.getElementById(`${thisAttempt}-${i}`);
+                    let wrongSpot = document.getElementById(`${thisAttempt-1}-${i}`);
                     wrongSpot.style.backgroundColor = "yellow";
                 }
             }
             else{
                 console.log(`${word[i]} not here`);
-                let wrongLetter = document.getElementById(`${thisAttempt}-${i}`);
+                let wrongLetter = document.getElementById(`${thisAttempt-1}-${i}`);
                 wrongLetter.style.backgroundColor = "gray";            
             }
         }
@@ -191,14 +155,15 @@ function checkWord (word){
 }
 
 function compareWord(word){
-    // if (checkIfGuessed(submitWord()) === true){
     if (checkIfGuessed(submittedWord) === true){
-        console.log("Answered!")
+        for (let i=0; i<wordLength; i++){
+            let solved = document.getElementById(`${thisAttempt-1}-${i}`);
+            solved.style.backgroundColor = "green";
+            console.log("Answered!")
+        }
     }
-    // else if (checkValidity(submitWord()) === true){
-        else if (checkValidity(submittedWord) === true){
+    else if (checkValidity(submittedWord) === true){
         console.log("huhuh")
-        // checkWord(submitWord());
         checkWord(submittedWord);
     }
 }
