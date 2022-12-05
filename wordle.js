@@ -36,14 +36,12 @@ function nextLetter(e) {
     if ((input.nextElementSibling && input.value)) {
         input.nextElementSibling.focus();
     }
-    // if (thisLetterPos !== 4)
-    if (thisLetterPos <5){
+    if (thisLetterPos < 5){
         if (thisLetterPos < 0){
             thisLetterPos = 0;
         }
         thisLetterPos++;
     }   
-    console.log("nextletter This Letter Pos: " + thisLetterPos);
 }
 
 let enterButton = document.getElementById("enter");
@@ -79,7 +77,9 @@ document.addEventListener("keyup", (e) => {
         if (thisLetterPos === 5 && (thisAttempt < (totalGuesses))){
             submittedWord = submitWord();
             if (wordList.includes(submittedWord) === false){
+                console.log("this Attempt: " + thisAttempt);
                 alert("Not a real word. Try Again.");
+                return;
             } 
             thisAttempt++;
             thisLetterPos = 0;
@@ -89,8 +89,12 @@ document.addEventListener("keyup", (e) => {
                 let nextGuess = document.getElementById(`${thisAttempt}-0`);
                 nextGuess.focus();
             }
+            if (thisAttempt === 6){
+                alert("You lost, sorry! Word was: " + answerWord);
+                alert("Press 'Ok' to try again.")
+                location.reload();
+            }
         } else if (e.key === "Backspace"){
-            // thisLetterPos--;
             let delKey = e.target;
             if (delKey.previousElementSibling){
                 delKey.previousElementSibling.value="";
@@ -98,16 +102,15 @@ document.addEventListener("keyup", (e) => {
             }
             if (thisLetterPos > 0)
                 deleteLetter();
-    }
+        }
 })
 
 function deleteLetter(){
     let delLetter = document.getElementById(`${thisAttempt}-${thisLetterPos}`);
-    if (thisWord.length >5){
+    if (thisWord.length > 5){
         thisWord.pop(delLetter);
     }    
     thisLetterPos--;
-
     console.log("this letter pos: " + thisLetterPos);
 }
 
@@ -169,9 +172,7 @@ function checkWord (word){
                 wrongLetter.style.backgroundColor = "gray";            
             }
         }
-    } else {
-        console.log("u got the answer");
-    }
+    }    
 }
 let solved;
 function compareWord(word){
@@ -180,11 +181,9 @@ function compareWord(word){
             solved = document.getElementById(`${thisAttempt-1}-${i}`);
             solved.style.backgroundColor = "green";
         }
-        if (solved.style.backgroundColor = "green"){
-            alert("Answered! Click 'Ok' to guess a new word");
-        }
+        alert("Answered! Click 'Ok' to guess a new word");
         location.reload();
-    }
+    } 
     else if (checkValidity(submittedWord) === true){
         console.log("huhuh")
         checkWord(submittedWord);
