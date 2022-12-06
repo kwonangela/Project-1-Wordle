@@ -61,7 +61,12 @@ function submitWord(){
         testWord = document.getElementById(`${thisAttempt}-${i}`).value;
         // pushes the word into an array
         thisWord.push(testWord);
+        let dontClick = document.getElementById(`${thisAttempt}-${i}`)
+        if (!dontClick){
+            dontClick.pointerEvents="none";
+        }
     }
+
     // makes sure array is empty from prior word entered and only looks at new word entered
     if (thisWord.length > 5){
         thisWord.splice(0, 5);
@@ -97,6 +102,10 @@ document.addEventListener("keyup", (e) => {
                 alert("Not a real word. Try Again.");
                 return;
             } else {
+                // makes sure user can't type over previous word
+                for (let i=0; i<5; i++){
+                    document.getElementById(`${thisAttempt}-${i}`).readOnly = true;
+                }
                 thisAttempt++;
                 compareWord(submittedWord);
             }
@@ -108,8 +117,10 @@ document.addEventListener("keyup", (e) => {
             if (thisAttempt === 6){
                 if (submittedWord !== answerWord){
                     alert("You lost, sorry! Word was: " + answerWord);
-                    alert("Press 'Ok' to try again.")
-                    location.reload();
+                    if (confirm("Press 'Ok' to try again."))
+                        location.reload();
+                    else
+                        return;
                 }
             }    
     }
@@ -145,11 +156,6 @@ function deleteLetter(){
         thisWord.pop(delLetter);
     }
 }
-
-let enterButton = document.getElementById("enter");
-enterButton.addEventListener("click", function () {
-
-})
 
 // chooses a random word from word list array
 function pickWord(){
@@ -223,11 +229,43 @@ function compareWord(word){
             solved = document.getElementById(`${thisAttempt-1}-${i}`);
             solved.style.backgroundColor = "#549e74";
         } // reloads page for new word
-        alert("Answered! Click 'Ok' to guess a new word");
-        location.reload();
+        if (confirm("Answered! Click 'Ok' to guess a new word"))
+            location.reload();
+        else
+            for (let i=0; i<6; i++){
+                for (let j=0; j<5; j++){
+                    document.getElementById(`${i}-${j}`).readOnly = true;
+                }
+            }
+            return;
     } 
     else if (checkValidity(submittedWord) === true){
         checkWord(submittedWord);
     }
 }
 
+
+///// FROM W3SCHOOL WEBSITE ///////
+// Get the modal
+var modal = document.getElementById("myModal");
+// Get the button that opens the modal
+var btn = document.getElementById("rules");
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}

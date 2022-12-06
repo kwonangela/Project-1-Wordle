@@ -9,7 +9,25 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Angela's Wordle</h1>
+    <header>
+        <h1>Angela's Wordle</h1>
+        <button id="rules">?</button>
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Rules and Tips</h2>
+                <p>*You have <b>6 tries</b> to guess a <b>5-letter</b> word*</p>
+                <p>*Guesses must be a <b>valid</b> 5-letter word in the English language*</p>
+                <p>- If a letter turns <span class="green">green</span>,it is in the right spot! Don't change it. </p>
+                <p>- If a letter turns <span class="yellow">yellow</span>, it is in the word, but in the wrong spot. Move it around in your next guess!</p>
+                <p>- If a letter turns <span class="gray">gray</span>, it is not in the word. Try not to use it again.</p>
+                <p style="font-size: 30px; font-weight: bold;"> HAVE FUN </p>
+
+            </div>
+        </div>
+    </header>
     <div id="game">
     </div>
     <div id="keyboard">
@@ -37,7 +55,6 @@
             <button class="keys" id="l">L</button>
         </div>
         <div class="bot">
-            <button class="keys" id="enter">ENTER</button>
             <button class="keys" id="z">Z</button>
             <button class="keys" id="x">X</button>
             <button class="keys" id="c">C</button>
@@ -45,7 +62,6 @@
             <button class="keys" id="b">B</button>
             <button class="keys" id="n">N</button>
             <button class="keys" id="m">M</button>
-            <button class="keys" id="del">DEL</button>
         </div>
     </div>
 </body>

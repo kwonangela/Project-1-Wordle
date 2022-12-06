@@ -7,9 +7,15 @@ body {
     color: #f5f2eb;
 }
 
+header{
+    font-family: 'Courier New', Courier, monospace;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
 h1 {
     font-size: 40px;
-    font-family: 'Courier New', Courier, monospace;
     color: #f5f2eb;
     border-bottom: 2px solid #f5f2eb;
 }
@@ -19,7 +25,7 @@ h1 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 10px;
+    margin-top: -10px;
 }
 
 .row {
@@ -51,11 +57,15 @@ h1 {
     margin-top: 20px;
 }
 
+.top, .mid, .bot{
+    display: flex;
+    flex-direction: row;
+}
 .keys{
     background-color: #f5f2eb;
     font-size: 15px;
     margin: 1.5px;
-    width: 2em;
+    width: 2.5em;
     height: 3em;
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
@@ -68,4 +78,74 @@ h1 {
 }
 #del{
     width: 3em;
+}
+
+/* Taken from W3Schools*/
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: black;
+    color: #f5f2eb;
+    margin: 5% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #f5f2eb;
+    width: 50%; /* Could be more or less, depending on screen size */
+    font-size: 17px;
+}
+
+h2{
+    font-size: 35px;
+}
+
+.green{
+    background-color: #549e74;
+    color: black;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.yellow{
+    background-color: #f2eb96;
+    color: black;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.gray{
+    background-color: #8b8c8f;
+    color: black;
+    font-weight: bold;
+    font-size: 20px;
+}
+    /* The Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover, .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#rules {
+    height: 25px;
+    border-radius: 10px;
+    border-color: black;
+    background-color: #f5f2eb;
 }
