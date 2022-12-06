@@ -31,5 +31,4 @@ JavaScript, HTML, CSS
 - Provide a "give-up" button
 - Provide a "word of the day" option
 - Keep track of user's score
->>>>>>> b80d753a6f1b80c0dafad41dbea73b709f80f3d4
 
