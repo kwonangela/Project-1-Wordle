@@ -9,7 +9,7 @@
 
 My game is based off Wordle, the New York Times word game that was popularized through social media a few years ago. The rules of the game are fairly simple, but it still exercises your brain and gets you thinking. 
 
-LINK:
+LINK: https://kwonangela.github.io/Project-1-Wordle/
 
 *click the "?" button for rules & tips*
 
