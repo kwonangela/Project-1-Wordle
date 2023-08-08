@@ -42,38 +42,54 @@
     </header>
     <div id="game"></div>
     <div id="keyboard">
-      <div class="key-row top">
-        <button class="keys" id="q">Q</button>
-        <button class="keys" id="w">W</button>
-        <button class="keys" id="e">E</button>
-        <button class="keys" id="r">R</button>
-        <button class="keys" id="t">T</button>
-        <button class="keys" id="y">Y</button>
-        <button class="keys" id="u">U</button>
-        <button class="keys" id="i">I</button>
-        <button class="keys" id="o">O</button>
-        <button class="keys" id="p">P</button>
+        <div class="top">
+          <button class="keys" id="q" data-key="q">Q</button>
+          <button class="keys" id="w" data-key="w">W</button>
+          <button class="keys" id="e" data-key="e">E</button>
+          <button class="keys" id="r" data-key="r">R</button>
+          <button class="keys" id="t" data-key="t">T</button>
+          <button class="keys" id="y" data-key="y">Y</button>
+          <button class="keys" id="u" data-key="u">U</button>
+          <button class="keys" id="i" data-key="i">I</button>
+          <button class="keys" id="o" data-key="o">O</button>
+          <button class="keys" id="p" data-key="p">P</button>
+        </div>
+        <div class="mid">
+          <button class="keys" id="a" data-key="a">A</button>
+          <button class="keys" id="s" data-key="s">S</button>
+          <button class="keys" id="d" data-key="d">D</button>
+          <button class="keys" id="f" data-key="f">F</button>
+          <button class="keys" id="g" data-key="g">G</button>
+          <button class="keys" id="h" data-key="h">H</button>
+          <button class="keys" id="j" data-key="j">J</button>
+          <button class="keys" id="k" data-key="k">K</button>
+          <button class="keys" id="l" data-key="l">L</button>
+        </div>
+        <div class="bot">
+          <button class="keys" id="z" data-key="z">Z</button>
+          <button class="keys" id="x" data-key="x">X</button>
+          <button class="keys" id="c" data-key="c">C</button>
+          <button class="keys" id="v" data-key="v">V</button>
+          <button class="keys" id="b" data-key="b">B</button>
+          <button class="keys" id="n" data-key="n">N</button>
+          <button class="keys" id="m" data-key="m">M</button>
+        </div>
       </div>
-      <div class="key-row mid">
-        <button class="keys" id="a">A</button>
-        <button class="keys" id="s">S</button>
-        <button class="keys" id="d">D</button>
-        <button class="keys" id="f">F</button>
-        <button class="keys" id="g">G</button>
-        <button class="keys" id="h">H</button>
-        <button class="keys" id="j">J</button>
-        <button class="keys" id="k">K</button>
-        <button class="keys" id="l">L</button>
-      </div>
-      <div class="key-row bot">
-        <button class="keys" id="z">Z</button>
-        <button class="keys" id="x">X</button>
-        <button class="keys" id="c">C</button>
-        <button class="keys" id="v">V</button>
-        <button class="keys" id="b">B</button>
-        <button class="keys" id="n">N</button>
-        <button class="keys" id="m">M</button>
-      </div>
-    </div>
+      
+    <script>
+      const keyboardButtons = document.querySelectorAll(".keys");
+
+      keyboardButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const key = button.getAttribute("data-key");
+          if (key) {
+            const keyEvent = new KeyboardEvent("keydown", { code: `Key${key.toUpperCase()}` });
+            document.dispatchEvent(keyEvent);
+            console.log("key", key)
+            console.log("keyev", keyEvent)
+          }
+        });
+      });
+    </script>
   </body>
 </html>
