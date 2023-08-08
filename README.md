@@ -1,15 +1,8 @@
-<<<<<<< HEAD
-1. Googled a way to put words from text file into an array
-
-2. Tested with small text file at first 
-
-3. Found a list of 5 letter words (https://www-cs-faculty.stanford.edu/~knuth/sgb-words.txt)
-=======
 # ANGELA'S WORDLE: 
 
 My game is based off Wordle, the New York Times word game that was popularized through social media a few years ago. The rules of the game are fairly simple, but it still exercises your brain and gets you thinking. 
 
-LINK:
+LINK: https://kwonangela.github.io/Project-1-Wordle/
 
 *click the "?" button for rules & tips*
 
@@ -38,5 +31,4 @@ JavaScript, HTML, CSS
 - Provide a "give-up" button
 - Provide a "word of the day" option
 - Keep track of user's score
->>>>>>> b80d753a6f1b80c0dafad41dbea73b709f80f3d4
 
