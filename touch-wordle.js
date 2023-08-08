@@ -28,6 +28,9 @@ function makeGame(){
             col.type="text";
             col.maxLength=1;
             col.id = `${i}-${j}`;
+            col.addEventListener("input", function () {
+                manageFocus(this);
+            });
             row.appendChild(col);
         }
     }
@@ -51,6 +54,21 @@ function nextLetter(e) {
         }
         thisLetterPos++;
     }   
+}
+function manageFocus(input) {
+    if (!input.value) return;
+
+    let rowId = parseInt(input.parentElement.id);
+    let colId = parseInt(input.id.split("-")[1]);
+    let nextRowId = rowId + Math.floor((colId + 1) / wordLength);
+    let nextColId = (colId + 1) % wordLength;
+
+    let nextInput = document.getElementById(`${nextRowId}-${nextColId}`);
+    if (nextInput) {
+        nextInput.focus();
+    } else {
+        input.blur();
+    }
 }
 
 // returns the word the user enters 
