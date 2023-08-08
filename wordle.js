@@ -21,6 +21,7 @@ function makeGame(){
         row.id = i;
         board.appendChild(row);
         row.addEventListener("input", nextLetter);
+        row.addEventListener("input", nextLetter);
         for (let j=0; j < wordLength; j++){
             // each column is for each letter of the guess
             let col = document.createElement("input");
