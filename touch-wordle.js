@@ -1,5 +1,5 @@
 // imports the wordList array from words.js, which has all the words to choose from
-import { wordList, keyboardKeys } from "./words.js";
+import { wordList } from "./words.js";
 const keyboardButtons = document.querySelectorAll(".keys");
 let endLetters = ["0-4", "1-4", "2-4", "3-4", "4-4", "5-4"];
 
@@ -10,7 +10,6 @@ let thisAttempt = 0; // keeps track of current guess
 let thisLetterPos = 0; // keeps track of letter position
 let thisWord = []; // empty array to push contents in later
 let stringWord = ""; // empty string that joins array contents
-let keys = keyboardKeys; // array of all letters
 
 // makes the game board where user will input 6 words max
 function makeGame() {
@@ -41,18 +40,6 @@ function makeGame() {
 // spawn game on load
 makeGame();
 
-// keyboardButtons.forEach((button) => {
-//     button.addEventListener("mousedown", () => {
-//         const key = button.getAttribute("data-key");
-//         if (key === "Enter") {
-//             handleEnterKey();
-//         } else if (key === "Backspace") {
-//             handleDeleteKey();
-//         } else if (key) {
-//             handleVirtualKeyboardInput(key);
-//         }
-//     });
-// });
 keyboardButtons.forEach((button) => {
   button.addEventListener("click", () => {
     const key = button.getAttribute("data-key");
@@ -89,6 +76,9 @@ function handleVirtualKeyboardInput(key) {
     }
   } else if (inputElement) {
     inputElement.value = key;
+    // if (document.getElementById(`${thisAttempt}-${5}`)){
+    //     console.log("hey")
+    // }
     nextLetter({ target: inputElement }); // Call nextLetter manually to move focus
   }
 }
@@ -117,6 +107,8 @@ function nextLetter(e) {
     }
     thisLetterPos++;
   }
+  console.log(thisLetterPos);
+
 }
 
 // returns the word the user enters
