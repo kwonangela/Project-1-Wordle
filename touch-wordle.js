@@ -49,9 +49,14 @@ keyboardButtons.forEach((button) => {
 
 function handleVirtualKeyboardInput(key) {
   // Get the current input element based on thisAttempt and thisLetterPos
+  console.log("thisAttempt:", thisAttempt);
+  console.log("thisLetterPos:", thisLetterPos);
+
   const inputElement = document.getElementById(
     `${thisAttempt}-${thisLetterPos}`
   );
+  console.log("inputElement:", inputElement);
+
   if (key === "Enter") {
     handleEnterKey();
   } else if (key === "Backspace") {
@@ -99,7 +104,13 @@ function nextLetter(e) {
   let input = e.target;
   if (input.nextElementSibling && input.value) {
     input.nextElementSibling.focus();
-  }
+  } 
+  // else if (input.parentNode.nextElementSibling) {
+  //   let nextRow = input.parentNode.nextElementSibling.querySelector(".col");
+  //   if (nextRow) {
+  //     nextRow.focus();
+  //   }
+  // }
   // moves the letter position as user inputs/deletes letters -- makes sure it never falls below 0
   if (thisLetterPos < 5) {
     if (thisLetterPos < 0) {
@@ -160,13 +171,22 @@ function handleEnterKey() {
         document.getElementById(`${thisAttempt}-${i}`).readOnly = true;
       }
       thisAttempt++;
+      thisLetterPos =0;
       compareWord(submittedWord);
     }
   }
-  if (thisAttempt < 6) {
-    let nextGuess = document.getElementById(`${thisAttempt}-0`);
-    nextGuess.focus();
+
+  
+  if (thisAttempt < totalGuesses) {
+    const currentRow = document.getElementById(`${thisAttempt}`);
+    const nextEmptyInput = Array.from(currentRow.getElementsByClassName("col"))
+      .find(input => input.value === "");
+  
+    if (nextEmptyInput) {
+      nextEmptyInput.focus();
+    }
   }
+  
   if (thisAttempt === 6 && submittedWord !== answerWord) {
     alert("You lost, sorry! Word was: " + answerWord);
     if (confirm("Press 'Ok' to try again.")) {
@@ -194,11 +214,18 @@ function handleDeleteKey() {
   }
 }
 
+// document.addEventListener("keyup", (e) => {
+//   if (e.key === "Enter") {
+//     handleEnterKey();
+//   }
+// });
+
 document.addEventListener("keyup", (e) => {
-  if (e.key === "Enter") {
+  if (e.key === "Enter" && e.target.tagName === "INPUT") {
     handleEnterKey();
   }
 });
+
 
 document.addEventListener("keydown", (e) => {
   if (e.key === "Backspace") {
