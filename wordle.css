@@ -6,6 +6,7 @@ body {
     align-items: center;
     background: black;
     color: #f5f2eb;
+    width: 100vw;
 }
 
 header{
@@ -16,9 +17,9 @@ header{
 }
 
 h1 {
-    font-size: 40px;
+    font-size: 8vw;
     color: #f5f2eb;
-    border-bottom: 2px solid #f5f2eb;
+    border-bottom: .5vw solid #f5f2eb;
 }
 
 #game {
@@ -30,33 +31,32 @@ h1 {
 }
 
 .row {
-    height: 50px;
+    height: 9vw;
     width: auto;
     display: flex;
     flex-direction: row;
-    margin-bottom: 5px;
-    margin-top: 10px;
+    margin-bottom: 2vw;
+    margin-top: 2vw;
 }
 .col {
-    height: 50px;
-    width: 50px;
-    border: 2px solid black;
-    margin: .5px;
+    height: 10vw;
+    width: 10vw;
+    border: solid black;
+    margin: .3vw;
     position: relative;
-    font-size: 50px;
+    font-size: 10vw;
     text-align: center;
     text-transform: uppercase;
-    border-radius: 5px;
+    border-radius: 2vw;
     font-family: 'Courier New', Courier, monospace;
     background-color: #f5f2eb;
-    color: red;
 }
 
 #keyboard{
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 3vh;
 }
 
 .top, .mid, .bot{
@@ -65,77 +65,78 @@ h1 {
 }
 .keys{
     background-color: #f5f2eb;
-    font-size: 15px;
-    margin: 1.5px;
-    width: 2.5em;
-    height: 3em;
+    font-size: 3vw;
+    margin:0.1vw;
+    width: 6vw;
+    height: 6vw;
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
     border-color: black;
-    border-radius: 7px;
+    border-radius: 2vw;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
 }
 
 #enter {
-    width: 4.5em;
+    width: 12vw;
 }
 #del{
-    width: 4.5em;
+    width: 12vw;
 }
 
-/* Taken from W3Schools*/
 .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    width: 100%;
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4); 
 }
 
-/* Modal Content/Box */
 .modal-content {
     background-color: black;
     color: #f5f2eb;
-    margin: 5% auto; /* 15% from the top and centered */
-    padding: 20px;
-    border: 1px solid #f5f2eb;
-    width: 50%; /* Could be more or less, depending on screen size */
-    font-size: 17px;
+    margin: 5% auto;
+    padding: 5vw;
+    border: .5vw solid #f5f2eb;
+    width: 50%; 
+    font-size: 2.5vw;
 }
 
 h2{
-    font-size: 35px;
+    font-size: 5vw;
 }
 
 .green{
     background-color: #549e74;
     color: black;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 3vw;
 }
 
 .yellow{
     background-color: #f2eb96;
     color: black;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 3vw;
 }
 
 .gray{
     background-color: #8b8c8f;
     color: black;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 3vw;
 }
     /* The Close Button */
 .close {
     color: #aaa;
     float: right;
-    font-size: 28px;
+    font-size: 6vw;
     font-weight: bold;
 }
 
@@ -146,8 +147,36 @@ h2{
 }
 
 #rules {
-    height: 25px;
-    border-radius: 10px;
+    border-radius: 4vw;
     border-color: black;
     background-color: #f5f2eb;
+    height: 4vh;
+    width: 6vw;
+}
+
+@media screen and (min-width: 350px){
+    .row {
+        margin-top: 2vh;
+        margin-bottom: 3vh;
+    }
+    .col {
+        height: 8vh;
+        width: 15vw;
+        margin-top: 2vh;
+    }
+    #game {
+        margin-bottom: 2.5vh;
+    }
+    .keys {
+        margin-top: 1vh;
+        width: 9vw;
+        height: 13vw;
+        font-size: 5vw;
+    }
+    #enter {
+        width: 17vw;
+    }
+    #del {
+        width: 12vw;
+    }
 }
