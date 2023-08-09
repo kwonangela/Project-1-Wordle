@@ -1,5 +1,8 @@
 // imports the wordList array from words.js, which has all the words to choose from
 import { wordList , keyboardKeys} from "./words.js";
+const keyboardButtons = document.querySelectorAll(".keys");
+let endLetters = ["0-4","1-4","2-4","3-4","4-4","5-4"];
+
 
 // initializing all variables i will be using for rest of code
 const wordLength = 5; // length of all valid words
@@ -21,6 +24,7 @@ function makeGame(){
         row.id = i;
         board.appendChild(row);
         row.addEventListener("input", nextLetter);
+
         for (let j=0; j < wordLength; j++){
             // each column is for each letter of the guess
             let col = document.createElement("input");
@@ -37,6 +41,30 @@ function makeGame(){
 }
 // spawn game on load
 makeGame();
+
+keyboardButtons.forEach((button) => {
+    button.addEventListener("mousedown", () => {
+        const key = button.getAttribute("data-key");
+        if (key === "Enter") {
+            handleEnterKey();
+        } else if (key === "Backspace") {
+            handleDeleteKey();
+        } else if (key) {
+            handleVirtualKeyboardInput(key);
+        }
+    });
+});
+
+function handleVirtualKeyboardInput(key) {
+  // Get the current input element based on thisAttempt and thisLetterPos
+  const inputElement = document.getElementById(
+    `${thisAttempt}-${thisLetterPos}`
+  );
+  if (inputElement) {
+    inputElement.value = key;
+    nextLetter({ target: inputElement }); // Call nextLetter manually to move focus
+  }
+}
 
 // automatically puts cursor at next letter spot in same word so user can easily type word in 
 function nextLetter(e) {
@@ -87,67 +115,67 @@ document.addEventListener("keydown", (e) => {
 // let thisLetId = document.activeElement; && (thisLetId.id$=`-4`)
 
 // when user inputs key and lets go
-document.addEventListener("keyup", (e) => {
-    if (e.key === "Enter") {
-        // if user tries to enter a word less than 5 letters
-        if (thisLetterPos < 5 ) {
-            alert("Not a 5 letter word");
+function handleEnterKey() {
+    if (thisLetterPos < 5) {
+        alert("Not a 5 letter word");
+        return;
+    }
+    if (thisLetterPos === 5 && thisAttempt < totalGuesses) {
+        submittedWord = submitWord();
+        if (!wordList.includes(submittedWord)) {
+            alert("Not a real word. Try Again.");
+            return;
+        } else {
+            for (let i = 0; i < 5; i++) {
+                document.getElementById(`${thisAttempt}-${i}`).readOnly = true;
+            }
+            thisAttempt++;
+            compareWord(submittedWord);
+        }
+    }
+    if (thisAttempt < 6) {
+        let nextGuess = document.getElementById(`${thisAttempt}-0`);
+        nextGuess.focus();
+    }
+    if (thisAttempt === 6 && submittedWord !== answerWord) {
+        alert("You lost, sorry! Word was: " + answerWord);
+        if (confirm("Press 'Ok' to try again.")) {
+            location.reload();
+        } else {
             return;
         }
-        // if user enters a 5 letter word
-        if (thisLetterPos === 5 && (thisAttempt < (totalGuesses))){
-            submittedWord = submitWord();
-            // check if inputted word is actually in wordlist
-            if (wordList.includes(submittedWord) === false){
-                alert("Not a real word. Try Again.");
-                return;
-            } else {
-                // makes sure user can't type over previous word
-                for (let i=0; i<5; i++){
-                    document.getElementById(`${thisAttempt}-${i}`).readOnly = true;
-                }
-                thisAttempt++;
-                compareWord(submittedWord);
-            }
-        } // if user can guess more, pushes focus to next work
-            if (thisAttempt < 6){
-                let nextGuess = document.getElementById(`${thisAttempt}-0`);
-                nextGuess.focus();
-            } // if user doesn't guess on last try, lose and reset game
-            if (thisAttempt === 6){
-                if (submittedWord !== answerWord){
-                    alert("You lost, sorry! Word was: " + answerWord);
-                    if (confirm("Press 'Ok' to try again."))
-                        location.reload();
-                    else
-                        return;
-                }
-            }    
     }
-})
-    // all possible IDs last letter of word can be
-    let endLetters = ["0-4","1-4","2-4","3-4","4-4","5-4"];
-    // registers events as soon as backspace is entered
-    document.addEventListener("keydown", (e) => {
-    if (e.key === "Backspace"){
-        let delKey = e.target;
-        let isEndLetter = endLetters.includes(delKey.id);
-        if (delKey.previousElementSibling){
-            // makes sure focus stays in current box if last and not empty
-            if (isEndLetter === true && (delKey.value !== "") ) {
-                delKey.focus();
-            } else {
-                delKey.previousElementSibling.value="";
-                delKey.previousElementSibling.focus();
-            }    
+}
+
+function handleDeleteKey() {
+    let delKey = document.activeElement;
+    let isEndLetter = endLetters.includes(delKey.id);
+    if (delKey.previousElementSibling) {
+        if (isEndLetter && delKey.value !== "") {
+            delKey.focus();
+        } else {
+            delKey.previousElementSibling.value = "";
+            delKey.previousElementSibling.focus();
         }
-        // changes letter position as user deletes
-        if (thisLetterPos > 0){
-            thisLetterPos--;
-            deleteLetter();
-        }
-    } 
-})
+    }
+    if (thisLetterPos > 0) {
+        thisLetterPos--;
+        deleteLetter();
+    }
+}
+
+document.addEventListener("keyup", (e) => {
+    if (e.key === "Enter") {
+        handleEnterKey();
+    }
+});
+
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Backspace") {
+        handleDeleteKey();
+    }
+});
+
 
 // deletes unused letters from array if > 5 --- sometimes triggered
 function deleteLetter(){
